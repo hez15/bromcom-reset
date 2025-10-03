@@ -1,0 +1,19 @@
+
+version: "3.8"
+services:
+  api:
+    build: .
+    container_name: bromcom-reset-api
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - AzureAd__TenantId=${AzureAd__TenantId}
+      - AzureAd__ClientId=${AzureAd__ClientId}
+      - AzureAd__ClientSecret=${AzureAd__ClientSecret}
+      - AzureAd__Audience=${AzureAd__Audience}
+      - Reset__AllowedGroupObjectId=${Reset__AllowedGroupObjectId}
+      - Audit__Path=/data/logs/audit.log
+    volumes:
+      - ./data:/data
+    ports:
+      - "5080:8080"
+    restart: unless-stopped
